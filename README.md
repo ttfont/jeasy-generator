@@ -1,7 +1,7 @@
 # jeasy-generator源码生成插件
 jeasy-generator以mybatis-generator为基础扩展插件，目前扩展了分页插件和模板插件
 ## test包中的代码结构，可以直接运行测试
-![test包结构](https://github.com/Zhu/jeasy/blob/master/test%E5%8C%85%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84.png)
+![test包结构](https://github.com/ttfont/jeasy-generator/blob/master/test%E5%8C%85%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84.png)
 
 ## 分页插件使用
 在mybatisGenerator.xml中引入以下扩展
