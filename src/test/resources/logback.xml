@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%-5level|%d{yyyy-MM-dd HH:mm:ss.SSS}|mgp|%msg|%thread|%caller{1}</pattern>
+            <charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="infologFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/mnt/mgp-log/mgp.infolog</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/mnt/mgp-log/mgp/mgp.%d{yyyy-MM-dd}.infolog</fileNamePattern>
+			<maxHistory>100</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%-5level|%d{yyyy-MM-dd HH:mm:ss.SSS}|mgp|%msg|%thread|%logger{40}%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="errlogFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>/mnt/mgp-log/mgp.errlog</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/mnt/mgp-log/mgp/mgp.%d{yyyy-MM-dd}.errlog</fileNamePattern>
+			<maxHistory>100</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%-5level|%d{yyyy-MM-dd HH:mm:ss.SSS}|mgp|%msg|%thread|%logger{40}%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<logger name="xin.jeasy" level="debug" />
+	<logger name="org.springframework" level="info" />
+	<logger name="org.apache.ibatis" level="debug" />
+
+	<root level="debug">
+		<appender-ref ref="console" />
+		<appender-ref ref="infologFile" />
+		<appender-ref ref="errlogFile" />
+	</root>
+
+</configuration>

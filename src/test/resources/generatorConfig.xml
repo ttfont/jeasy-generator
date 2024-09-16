@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- <properties resource="inti.properties" /> targetRuntime="MyBatis3" -->
+
+    <context id="mybatis" defaultModelType="flat" targetRuntime="MyBatis3">
+
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin
+                type="xin.jeasy.mybatis.generator.plugin.LimitForMysqlPagePlugin"/>
+
+
+        <plugin
+                type="xin.jeasy.mybatis.generator.plugin.TemplateFilePlugin">
+            <property name="targetProject" value="src/test/java"/>
+            <property name="targetPackage"
+                      value="xin.jeasy.mybatis.generator.tests.web.controller"/>
+            <property name="templatePath" value="templates/controller.ftl"/>
+            <property name="templateFormatter"
+                      value="xin.jeasy.mybatis.generator.format.FreemarkerTemplateFormatter"/>
+            <property name="mapperSuffix" value="Controller"/>
+            <property name="projectPackage"
+                      value="xin.jeasy.mybatis.generator.tests"/>
+            <property name="fileName"
+                      value="${tableClass.shortClassName}${mapperSuffix}.java"/>
+        </plugin>
+
+
+        <!-- 自动生成 Service 类 -->
+        <plugin
+                type="xin.jeasy.mybatis.generator.plugin.TemplateFilePlugin">
+            <property name="targetProject" value="src/test/java"/>
+            <property name="targetPackage"
+                      value="xin.jeasy.mybatis.generator.tests.service"/>
+            <property name="templatePath" value="templates/service.ftl"/>
+            <property name="templateFormatter"
+                      value="xin.jeasy.mybatis.generator.format.FreemarkerTemplateFormatter"/>
+            <property name="mapperSuffix" value="Service"/>
+            <property name="projectPackage"
+                      value="xin.jeasy.mybatis.generator.tests"/>
+            <property name="fileName"
+                      value="${tableClass.shortClassName}${mapperSuffix}.java"/>
+        </plugin>
+
+        <!-- 自动生成自定义 Mapper.xml -->
+        <plugin
+                type="xin.jeasy.mybatis.generator.plugin.TemplateFilePlugin">
+            <property name="targetProject" value="src/test/resources"/>
+            <property name="targetPackage" value="db/extmapper"/>
+            <property name="templatePath" value="templates/extmapper.ftl"/>
+            <property name="templateFormatter"
+                      value="xin.jeasy.mybatis.generator.format.FreemarkerTemplateFormatter"/>
+            <property name="mapperPackage"
+                      value="xin.jeasy.mybatis.generator.tests.mapper.ext"/>
+            <property name="mapperSuffix" value="ExtMapper"/>
+            <property name="fileName"
+                      value="${tableClass.shortClassName}${mapperSuffix}.xml"/>
+        </plugin>
+
+        <!-- 自动生成自定义Interface Mapper -->
+
+        <plugin
+                type="xin.jeasy.mybatis.generator.plugin.TemplateFilePlugin">
+            <property name="targetProject" value="src/test/java"/>
+            <property name="targetPackage"
+                      value="xin.jeasy.mybatis.generator.tests.mapper.ext"/>
+            <property name="templatePath" value="templates/extinterfacemapper.ftl"/>
+            <property name="templateFormatter"
+                      value="xin.jeasy.mybatis.generator.format.FreemarkerTemplateFormatter"/>
+            <property name="mapperSuffix" value="ExtMapper"/>
+            <property name="projectPackage"
+                      value="xin.jeasy.mybatis.generator.tests"/>
+            <property name="fileName"
+                      value="${tableClass.shortClassName}${mapperSuffix}.java"/>
+        </plugin>
+
+        <!-- 自动生成自定义 HtmlEdit -->
+        <plugin
+                type="xin.jeasy.mybatis.generator.plugin.TemplateFilePlugin">
+            <property name="targetProject" value="src/test/webapp"/>
+            <property name="targetPackage" value="html/${tableClass.lowerCaseName}/"/>
+            <property name="templatePath" value="templates/htmledit.ftl"/>
+            <property name="templateFormatter"
+                      value="xin.jeasy.mybatis.generator.format.FreemarkerTemplateFormatter"/>
+            <property name="fileName" value="edit2.html"/>
+        </plugin>
+
+        <!-- 自动生成自定义 HtmlTable -->
+        <plugin
+                type="xin.jeasy.mybatis.generator.plugin.TemplateFilePlugin">
+            <property name="targetProject" value="src/test/webapp"/>
+            <property name="targetPackage" value="html/${tableClass.lowerCaseName}/"/>
+            <property name="templatePath" value="templates/htmltable.ftl"/>
+            <property name="templateFormatter"
+                      value="xin.jeasy.mybatis.generator.format.FreemarkerTemplateFormatter"/>
+            <property name="fileName" value="table2.html"/>
+
+        </plugin>
+        <!-- <commentGenerator> 是否去掉注释 <property name="suppressDate" value="true"
+            /> <property name="suppressAllComments" value="true" /> </commentGenerator> -->
+
+        <!-- 生成数据库字段注释及自定义注释 【扩展插件】 -->
+        <commentGenerator
+                type="xin.jeasy.mybatis.generator.comment.RemarksCommentGenerator">
+            <!-- 是否去掉注释 -->
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3061/test?tinyInt1isBit=false"
+                        userId="your_dev" password="123456">
+        </jdbcConnection>
+        <javaModelGenerator
+                targetPackage="xin.jeasy.mybatis.generator.tests.pojo"
+                targetProject="src\test\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="db/mapper"
+                         targetProject="src\test\resources"/>
+
+        <javaClientGenerator
+                targetPackage="xin.jeasy.mybatis.generator.tests.mapper"
+                targetProject="src\test\java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="user_info" domainObjectName="userInfo">
+            <generatedKey column="user_info_id" sqlStatement="MySql" identity="true" />
+        </table>
+
+    </context>
+</generatorConfiguration>
